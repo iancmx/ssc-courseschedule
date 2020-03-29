@@ -48,7 +48,7 @@ const getCourseSections = async (course, subject, year, session) => {
     );
     const sectionTable = $(".section1, .section2")
       .find("a")
-      .not(".accordion-toggle"); // Exclude .accordion to exclude section notes
+      .not(".accordion-toggle, .section-comments *"); // Exclude .accordion to exclude section notes
     const sections = [];
 
     sectionTable.each(function () {
@@ -266,7 +266,7 @@ const fetchData = async (url) => {
 //   "W"
 // ).then((sectionDetails) => console.log(sectionDetails));
 // getCourses("CPEN", 2019, "W").then(courses => console.log(courses));
-// getCourseSections("211", "CPEN", "2019", "W").then(sections => console.log(sections));
+getCourseSections("101", "FIPR", "2019", "W").then(sections => console.log(sections));
 
 module.exports = {
   getSubjects,
