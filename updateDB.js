@@ -45,6 +45,21 @@ const updateDB = async (year, session) => {
                     }
                   }
                 );
+              })
+              .catch((err) => {
+                console.log(
+                  "Error getCourseSectionDetails for: " +
+                    section +
+                    " " +
+                    course +
+                    " " +
+                    subject +
+                    " " +
+                    year +
+                    " " +
+                    session
+                );
+                console.log(err);
               });
           } catch (err) {
             console.log(
