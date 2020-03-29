@@ -16,7 +16,8 @@ const getSubjects = async (year, session) => {
 
     return subjects;
   } catch (err) {
-    console.log("Error: " + err.response.status);
+    console.log("getSubject error: " + year + ", " + session);
+    console.log(err);
   }
 };
 
@@ -35,7 +36,8 @@ const getCourses = async (subject, year, session) => {
 
     return courses;
   } catch (err) {
-    console.log("Error: " + err.response.status);
+    console.log("getCourses error: " + subject + ", " + year + ", " + session);
+    console.log(err);
   }
 };
 
@@ -56,6 +58,16 @@ const getCourseSections = async (course, subject, year, session) => {
 
     return sections;
   } catch (err) {
+    console.log(
+      "getCourseSections error: " +
+        course +
+        ", " +
+        subject +
+        ", " +
+        year +
+        ", " +
+        session
+    );
     console.log(err);
   }
 };
@@ -84,7 +96,23 @@ const getCourseSectionDetails = async (
   // console.log(urlBuilder.course(section, course, subject, year, session));
   const $ = await fetchData(
     urlBuilder.course(section, course, subject, year, session)
-  );
+  ).catch((err) => {
+    console.log(
+      "Error fetching details for: " +
+        section +
+        " " +
+        course +
+        " " +
+        subject +
+        " " +
+        year +
+        " " +
+        session
+    );
+    console.log(urlBuilder.course(section, course, subject, year, session));
+    console.log(err);
+    return;
+  });
 
   coursesection.subject = subject;
   coursesection.course = course;
@@ -142,16 +170,40 @@ const getCourseSectionDetails = async (
         return false;
       }
 
-      schedule.term = $(this)[0].children[0].children[0].data;
-      schedule.day = $(this)[0].children[1].children[0].data.trim();
-      schedule.startTime = $(this)[0].children[2].children[0].data;
-      schedule.endTime = $(this)[0].children[3].children[0].data;
-      schedule.building = $(this)[0].children[4].children[0].data;
-      schedule.room = $(this)[0].children[5].children[0]
-        ? $(this)[0].children[5].children[0].children[0].data
-        : "";
+      try {
+        schedule.term = $(this)[0].children[0].children[0].data;
+        schedule.day = $(this)[0].children[1].children[0].data.trim();
+        schedule.startTime = $(this)[0].children[2].children[0].data;
+        schedule.endTime = $(this)[0].children[3].children[0].data;
+        schedule.building = $(this)[0].children[4].children[0].data;
 
-      classes.push(schedule);
+        if ($(this)[0].children[5].children[0]) {
+          // Check if room is hyperlinked
+          if ($(this)[0].children[5].children[0].children) {
+            schedule.room = $(this)[0].children[5].children[0].children[0].data;
+          } else {
+            schedule.room = $(this)[0].children[5].children[0].data;
+          }
+        } else {
+          schedule.room = "";
+        }
+        classes.push(schedule);
+      } catch (err) {
+        console.log(
+          "Error getting timetable from: " +
+            section +
+            " " +
+            course +
+            " " +
+            subject +
+            " " +
+            year +
+            " " +
+            session
+        );
+        console.log(urlBuilder.course(section, course, subject, year, session));
+        console.log(err);
+      }
     });
 
     coursesection.classes = classes;
@@ -206,7 +258,13 @@ const fetchData = async (url) => {
 // 	}
 // })
 
-// getCourseSectionDetails("103", "506C", "APPP", "2019", "W");
+// getCourseSectionDetails(
+//   "101",
+//   "112",
+//   "BIOL",
+//   "2019",
+//   "W"
+// ).then((sectionDetails) => console.log(sectionDetails));
 // getCourses("CPEN", 2019, "W").then(courses => console.log(courses));
 // getCourseSections("211", "CPEN", "2019", "W").then(sections => console.log(sections));
 
