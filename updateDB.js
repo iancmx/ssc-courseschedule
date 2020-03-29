@@ -49,11 +49,11 @@ const updateDB = async (year, session) => {
               .catch((err) => {
                 console.log(
                   "Error getCourseSectionDetails for: " +
-                    section +
+                    sections[k] +
                     " " +
-                    course +
+                    courses[i] +
                     " " +
-                    subject +
+                    subjects[k] +
                     " " +
                     year +
                     " " +
