@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const updateDB = require("./updateDB");
+const updateDB = require("./src/updateDB");
 
 const mongoDB =
   "mongodb+srv://iancmx:3l1te_1414@ssc-xkg4y.mongodb.net/test?retryWrites=true&w=majority";

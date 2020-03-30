@@ -1,4 +1,4 @@
-const Section = require("./models/Section");
+const Section = require("../models/Section");
 const courseScheduleAPI = require("./courseSchedule");
 
 const updateDB = async (year, session) => {
