@@ -7,9 +7,16 @@ This project is a Node.js scraper that scrapes information from all courses and 
 To get the project up and running, git clone the repository and run
 ```
 npm install
+```
+Create a process.env file at the root folder and add the following key-pair:
+```
+MONGO_CONNECTION_STRING={insert your mongoDB connection string here}
+```
+Then run the following command to start the program:
+```
 npm start
 ```
-The program would then start scraping data from ssc and store the data into a mongoDB cluster. 
+The program would connect to the given MongoDB and start scraping data from ssc and storing the data into the given MongoDB cluster. 
 
 ## Using the scraper functions
 To use the scraper functions, import `courseSchedule.js` into your project.
