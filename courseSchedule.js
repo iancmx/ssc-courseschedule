@@ -266,7 +266,7 @@ const fetchData = async (url) => {
 //   "W"
 // ).then((sectionDetails) => console.log(sectionDetails));
 // getCourses("CPEN", 2019, "W").then(courses => console.log(courses));
-getCourseSections("101", "FIPR", "2019", "W").then(sections => console.log(sections));
+// getCourseSections("101", "FIPR", "2019", "W").then(sections => console.log(sections));
 
 module.exports = {
   getSubjects,
