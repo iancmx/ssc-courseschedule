@@ -1,9 +1,9 @@
 const mongoose = require("mongoose");
 const updateDB = require("./src/updateDB");
 
-const mongoDB =
-  "mongodb+srv://iancmx:3l1te_1414@ssc-xkg4y.mongodb.net/test?retryWrites=true&w=majority";
-mongoose.connect(mongoDB, { useNewUrlParser: true });
+mongoose.connect(process.env.MONGO_CONNECTION_STRING, {
+  useNewUrlParser: true,
+});
 
 const db = mongoose.connection;
 
